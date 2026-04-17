@@ -1,0 +1,47 @@
+name: Deploy to Azure (OIDC)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# TODO: Add the permissions required for OIDC
+permissions:
+   id-token: write
+   contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # TODO: Login to Azure using OIDC (no client-secret!)
+      # Use azure/login@v2
+      # Required parameters:
+      #   client-id: from secrets (public ID, not a secret)
+      #   tenant-id: from secrets
+      #   subscription-id: from secrets
+      # Do NOT use: creds (JSON with client_secret)
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+           client-id: ${{ secrets.AZURE_CLIENT_ID }}
+           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # TODO: Verify the login works
+      - name: Verify Azure connection
+        run: |
+           az account show
+           az group list --output table
+
+      # TODO: Deploy something (e.g. list resources in your resource group)
+       - name: Deploy
+         run: |
+           az group show --name <RESOURCE_GROUP> --output table
+
+      - name: Placeholder
+        run: echo "TODO - implement OIDC login and deployment"
