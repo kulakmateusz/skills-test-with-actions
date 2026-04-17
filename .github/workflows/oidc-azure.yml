@@ -39,7 +39,7 @@ jobs:
            az group list --output table
 
       # TODO: Deploy something (e.g. list resources in your resource group)
-       - name: Deploy
+      - name: Deploy
          run: |
            az group show --name <RESOURCE_GROUP> --output table
 
