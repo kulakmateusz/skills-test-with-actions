@@ -40,8 +40,8 @@ jobs:
 
       # TODO: Deploy something (e.g. list resources in your resource group)
       - name: Deploy
-         run: |
-           az group show --name <RESOURCE_GROUP> --output table
+        run: |
+           az group show --name testgroupmateusz --output table
 
       - name: Placeholder
         run: echo "TODO - implement OIDC login and deployment"
